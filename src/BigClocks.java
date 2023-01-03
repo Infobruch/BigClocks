@@ -1,37 +1,36 @@
 
 import GLOOP.*;
+
+import java.time.ZoneId;
+import java.time.temporal.TemporalField;
+
+
 public class BigClocks {
 
-    Clock clock1;
+    Clock clock1, clock2;
     GLLicht light;
     GLKamera cam;
     GLTastatur kb;
     public void run() {
 
         light = new GLLicht();
-        cam = new GLKamera(500, 500);
+        cam = new GLKamera(1000, 1000);
         cam.setzePosition(0, 0, 50);
         kb = new GLTastatur();
 
 
         clock1 = new Clock();
         clock1.build(0, 0, 0);
+
+        clock2 = new Clock();
+        clock2.build(0, 20, 0);
+
         while(!kb.esc()){
-            clock1.run(getHour(), getMinute(), getSecond());
+            clock1.run("Europe/Moscow");
+            clock2.run("Europe/London");
+            //System.out.println(ZoneId.getAvailableZoneIds());
             Sys.warte();
         }
 
     }
-
-    private int getHour() {
-        return java.time.LocalTime.now().getHour();
-    }
-    private int getMinute() {
-        return java.time.LocalTime.now().getMinute();
-    }
-    private int getSecond() {
-        return java.time.LocalTime.now().getSecond();
-    }
-
-
 }
