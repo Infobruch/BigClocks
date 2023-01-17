@@ -20,10 +20,10 @@ public class BigClocks {
 
 
         clock1 = new Clock();
-        clock1.build(0, 0, 0);
+        clock1.build(0, 0, 0, "Europe/Moscow");
 
         clock2 = new Clock();
-        clock2.build(0, 20, 0);
+        clock2.build(0, 20, 0, "Europe/London");
 
         while(!kb.esc()){
             clock1.run("Europe/Moscow");

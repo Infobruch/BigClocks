@@ -7,10 +7,11 @@ public class Clock {
     boolean firsttime = true;
     ZoneId zone;
     GLZylinder display, hourPointer, minutePointer, secondPointer, centre;
+    GLTafel zoneDisplay;
 
-    public void build(double x, double y, double z){
-        display = new GLZylinder(x, y, z, 10, 2, "src/clock.jpg");
-        display.setzeFarbe(1, 1, 1);
+    public void build(double x, double y, double z, String timeZone){
+            display = new GLZylinder(x, y, z, 10, 2, "src/clock.jpg");
+            display.setzeFarbe(1, 1, 1);
 
 
         centre = new GLZylinder(x, y, z +1, 0.5, 2);
@@ -30,6 +31,10 @@ public class Clock {
         secondPointer.setzeFarbe(1, 0, 1);
         secondPointer.drehe(-90, 0, 0);
         secondPointer.setzePosition(x, y + 4.5, z + 1);
+
+        sign(x, y - 20, z, timeZone);
+
+
     }
 
     public void run(String timeZone){
@@ -53,13 +58,17 @@ public class Clock {
             minutePointer.rotiere(-360/12, 0, 0, 1, display.gibX(), display.gibY(), display.gibZ());
         }
 
-
         //System.out.println(getSecond(zone) + " -- " + delta1Second + "--" + zone);
         delta1Hour = getHour(zone);
         delta1Minute = getMinute(zone);
         delta1Second = getSecond(zone);
         System.out.println(java.time.LocalTime.now(zone));
 
+    }
+
+    public void sign(double px, double py, double pz, String zone){
+        zoneDisplay = new GLTafel(px, py, pz, 20, 5);
+        zoneDisplay.setzeText(zone, 16);
     }
 
 
